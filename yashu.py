@@ -40,8 +40,16 @@ async def kang(u: Update, c: CallbackContext):
         format = "normal"
     sticid = type.file_id
     pack_name = f"Hades_of_{user.id}_by_{c.bot.username}_{format}_{pack}"
-    x = await c.bot.get_sticker_set(pack_name)
-    if not x:
+    try:
+        await c.bot.get_sticker_set(pack_name)
+        if format == "video":
+            await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, webm_sticker=sticid)
+        elif format == "animated":
+            await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, tgs_sticker=sticid)
+        else:
+            await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, png_sticker=sticid)
+        return await m.reply_text(f"your pack is [here](t.me/addstickers/{pack_name})")
+    except:
         await m.reply_text("Seems like new pack !\n\nSet name of new pack by using `/setpname` [name]")
         ALPHA = True
         V = user.id
@@ -56,14 +64,7 @@ async def kang(u: Update, c: CallbackContext):
             ENTERED = False
             ARGS = None
             return await m.reply_text(f"your pack is [here](t.me/addstickers/{pack_name})")
-    else:
-        if format == "video":
-            await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, webm_sticker=sticid)
-        elif format == "animated":
-            await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, tgs_sticker=sticid)
-        else:
-            await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, png_sticker=sticid)
-        return await m.reply_text(f"your pack is [here](t.me/addstickers/{pack_name})")
+        
 
 async def get_args(u: Update, c: CallbackContext):
     global ALPHA
