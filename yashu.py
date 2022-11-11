@@ -40,7 +40,7 @@ async def kang(u: Update, c: CallbackContext):
         format = "normal"
     sticid = type.file_id
     pack_name = f"Hades_of_{user.id}_by_{c.bot.username}_{format}_{pack}"
-    x = c.bot.get_stickerset(pack_name)
+    x = c.bot.get_sticker_set(pack_name)
     if not x:
         await m.reply_text("Seems like new pack !\n\nSet name of new pack by using `/setpname` [name]")
         ALPHA = True
