@@ -40,7 +40,7 @@ async def kang(u: Update, c: CallbackContext):
         format = "normal"
     sticid = type.file_id
     pack_name = f"Hades_of_{user.id}_by_{c.bot.username}_{format}_{pack}"
-    x = c.bot.get_sticker_set(pack_name)
+    x = await c.bot.get_sticker_set(pack_name)
     if not x:
         await m.reply_text("Seems like new pack !\n\nSet name of new pack by using `/setpname` [name]")
         ALPHA = True
@@ -48,21 +48,21 @@ async def kang(u: Update, c: CallbackContext):
         if ENTERED:
             title = ARGS
             if format == "video":
-                c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, webm_sticker=sticid)
+                await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, webm_sticker=sticid)
             elif format == "animated":
-                c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, tgs_sticker=sticid)
+                await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, tgs_sticker=sticid)
             else:
-                c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, png_sticker=sticid)
+                await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, png_sticker=sticid)
             ENTERED = False
             ARGS = None
             return await m.reply_text(f"your pack is [here](t.me/addstickers/{pack_name})")
     else:
         if format == "video":
-            c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, webm_sticker=sticid)
+            await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, webm_sticker=sticid)
         elif format == "animated":
-            c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, tgs_sticker=sticid)
+            await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, tgs_sticker=sticid)
         else:
-            c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, png_sticker=sticid)
+            await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, png_sticker=sticid)
         return await m.reply_text(f"your pack is [here](t.me/addstickers/{pack_name})")
 
 async def get_args(u: Update, c: CallbackContext):
@@ -88,7 +88,7 @@ async def del_sticker(u: Update, c: CallbackContext):
     if not m.reply_to_message.sticker:
         return await m.reply_text("reply to a stixker vruh! ")
     try:
-        c.bot.delete_sticker_from_set(m.reply_to_message.sticker.file_id)
+        await c.bot.delete_sticker_from_set(m.reply_to_message.sticker.file_id)
     except Exception as e:
         await m.reply_text(f"can't delete.. \n\n{e}")
 
