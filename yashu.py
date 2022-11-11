@@ -110,6 +110,7 @@ def Asynchorous():
     Yashu.add_handler(CommandHandler("setpname", get_args))
     Yashu.add_handler(CommandHandler("dsticker", del_sticker))
     Yashu.add_handler(CommandHandler("getpack", get_pack))
+    Yashu.add_handler(CommandHandler("start", start))
 
     Yashu.run_polling()
 
