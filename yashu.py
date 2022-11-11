@@ -104,6 +104,7 @@ async def get_pack(u: Update, c: CallbackContext):
     await m.reply_text(f"your pack is [here](t.me/addstickers/{pack_name})")
 
 def Asynchorous():
+    print("Asyncio bot started !\nYashuAlpha ✨💭❤️")
     Yashu = ApplicationBuilder().token(BOT_TOKEN).build()
     Yashu.add_handler(CommandHandler("hkang", kang))
     Yashu.add_handler(CommandHandler("setpname", get_args))
@@ -111,7 +112,6 @@ def Asynchorous():
     Yashu.add_handler(CommandHandler("getpack", get_pack))
 
     Yashu.run_polling()
-    print("Asyncio bot started !")
 
 if YashuAlpha_oP:
     Asynchorous()
