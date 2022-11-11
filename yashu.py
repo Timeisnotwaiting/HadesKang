@@ -39,7 +39,7 @@ async def kang(u: Update, c: CallbackContext):
     else:
         format = "normal"
     sticid = type.file_id
-    pack_name = f"Hades_of_{user.id}_by_{c.bot.username}_{format}_{pack}"
+    pack_name = f"Hades_of_{user.id}_{format}_{pack}_by_{c.bot.username}"
     try:
         await c.bot.get_sticker_set(pack_name)
         if format == "video":
@@ -101,7 +101,7 @@ async def get_pack(u: Update, c: CallbackContext):
     text = c.args
     if len(text) != 2:
         return await m.reply_text("/getpack [format] [packnum]")
-    pack_name = f"Hades_of_{user.id}_by_{c.bot.username}_{text[0]}_{text[1]}"
+    pack_name = f"Hades_of_{user.id}_{text[0]}_{text[1]}_by_{c.bot.username}"
     await m.reply_text(f"your pack is [here](t.me/addstickers/{pack_name})")
 
 def Asynchorous():
