@@ -1,5 +1,5 @@
 from telegram import Update 
-from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackContext
+from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, CallbackContext
 from config import BOT_TOKEN, SUDO_USERS
 
 async def start(u: Update, c: CallbackContext):
@@ -12,6 +12,8 @@ ARGS = None
 ENTERED = False
 
 V = []
+
+YashuAlpha_oP = True
 
 async def kang(u: Update, c: CallbackContext):
     global ALPHA
@@ -100,3 +102,16 @@ async def get_pack(u: Update, c: CallbackContext):
         return await m.reply_text("/getpack [format] [packnum]")
     pack_name = f"Hades_of_{user.id}_by_{c.bot.username}_{text[0]}_{text[1]}"
     await m.reply_text(f"your pack is [here](t.me/addstickers/{pack_name})")
+
+def Asynchorous():
+    Yashu = ApplicationBuilder().token(BOT_TOKEN).build()
+    Yashu.add_handler(CommandHandler("hkang", kang))
+    Yashu.add_handler(CommandHandler("setpname", get_args))
+    Yashu.add_handler(CommandHandler("dsticker", del_sticker))
+    Yashu.add_handler(CommandHandler("getpack", get_pack))
+
+    Yashu.run_polling()
+    print("Asyncio bot started !")
+
+if YashuAlpha_oP:
+    Asynchorous()
