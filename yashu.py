@@ -11,7 +11,7 @@ ARGS = None
 
 ENTERED = False
 
-V = []
+V = None
 
 YashuAlpha_oP = True
 
