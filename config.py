@@ -1,4 +1,4 @@
-from os import envrion as e
+from os import environ as e
 
 BOT_TOKEN = e["BOT_TOKEN"]
 
