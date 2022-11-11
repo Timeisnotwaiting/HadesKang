@@ -42,7 +42,7 @@ async def kang(u: Update, c: CallbackContext):
     pack_name = f"Hades_of_{user.id}_by_{context.bot.username}_{format}_{pack}"
     x = c.bot.get_stickerset(pack_name)
     if not x:
-        await m.reply_text("Seems like new pack !"\n\nSet name of new pack by using `/setpname` [name]")
+        await m.reply_text("Seems like new pack !\n\nSet name of new pack by using `/setpname` [name]")
         ALPHA = True
         V = user.id
         if ENTERED:
