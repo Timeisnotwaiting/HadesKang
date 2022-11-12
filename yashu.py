@@ -41,6 +41,7 @@ async def kang(u: Update, c: CallbackContext):
         get_file = await c.bot.get_file(file_id)
         dl = await get_file.download()
         x = convert(Path(dl))
+        format = "normal"
     else:
         type = m.reply_to_message.sticker
         if type.is_video:
