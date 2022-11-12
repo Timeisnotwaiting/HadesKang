@@ -14,11 +14,11 @@ async def kang(u: Update, c: CallbackContext):
     if not user.id in SUDO_USERS:
         return
     text = c.args
-    if len(text) < 2 and len(text) > 3:
+    if len(text) < 2:
         return await m.reply_text("/hkang [emoji] [packnum] [packname]")
     emoji = text[0]
     pack = text[1]
-    title = text[2] if len(text) == 3 else None
+    title = text[2:] if len(text) > 2 else None
     if not m.reply_to_message.sticker:
         return await m.reply_text("BRUH ! 🥲🥲\n\nReply to sticker !")
     type = m.reply_to_message.sticker
