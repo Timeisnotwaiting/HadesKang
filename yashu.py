@@ -19,6 +19,11 @@ async def kang(u: Update, c: CallbackContext):
     emoji = text[0]
     pack = text[1]
     title = text[2:] if len(text) > 2 else None
+    if title:
+        tot = ""
+        for spl in title:
+            tot += spl + " "
+        title = tot
     if not m.reply_to_message.sticker:
         return await m.reply_text("BRUH ! 🥲🥲\n\nReply to sticker !")
     type = m.reply_to_message.sticker
