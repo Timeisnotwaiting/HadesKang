@@ -63,8 +63,8 @@ async def kang(u: Update, c: CallbackContext):
         get_file = await c.bot.get_file(file_id)
         dl = await get_file.download()
         resize(dl)
-        split = dl.split(.)[0]
-        x = f"{split}.png"
+        spli = dl.split(.)[0]
+        x = f"{spli}.png"
         format = "normal"
         png = True
     else:
