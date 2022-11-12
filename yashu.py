@@ -14,7 +14,7 @@ async def kang(u: Update, c: CallbackContext):
     if not user.id in SUDO_USERS:
         return
     text = c.args
-    if not len(text) in [2, 3]:
+    if len(text) < 2 and len(text) > 3:
         return await m.reply_text("/hkang [emoji] [packnum] [packname]")
     emoji = text[0]
     pack = text[1]
