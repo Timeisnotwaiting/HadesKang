@@ -2,6 +2,7 @@ from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, CallbackContext
 from config import BOT_TOKEN, SUDO_USERS
 from pathlib import Path
+from fileinput import input
 
 async def start(u: Update, c: CallbackContext):
     await u.message.reply_text(f"Hello ! {u.effective_user.mention_html()}, Am kang bot of Hades Network, only Sudos can use me !")
@@ -46,7 +47,7 @@ async def kang(u: Update, c: CallbackContext):
     try:
         await c.bot.get_sticker_set(pack_name)
         if format == "video":
-            await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, webm_sticker=Path("lmao.webm"))
+            await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, webm_sticker=input("lmao.webm"))
         elif format == "animated":
             await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, tgs_sticker=open(x, "rb"))
         else:
@@ -66,7 +67,7 @@ async def kang(u: Update, c: CallbackContext):
             return await m.reply_text("/hkang [emoji] [packnum] [packname]")
         await m.reply_text("your new pack is created with name" + " " + title)
         if format == "video":
-            await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, webm_sticker=Path("lmao.webm"))
+            await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, webm_sticker=input("lmao.webm"))
         elif format == "animated":
             await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, tgs_sticker=open(x, "rb"))
         else:
