@@ -168,7 +168,7 @@ async def img_resizer(u: Update, c: CallbackContext):
             i = Image.open("alpha.png")
             i = i.resize((100, 100))
             i.save("alpha.png", "PNG")
-            await m.reply_photo("alpha.png")
+            await m.reply_document(open("alpha.png", "rb"))
 
 
 def Asynchorous():
