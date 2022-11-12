@@ -166,7 +166,7 @@ async def img_resizer(u: Update, c: CallbackContext):
             get = await c.bot.get_file(file)
             await get.download("alpha.png")
             i = Image.open("alpha.png")
-            i = i.resize(100, 100)
+            i = i.resize((100, 100))
             i.save("alpha.png", "PNG")
             await m.reply_photo("alpha.png")
 
