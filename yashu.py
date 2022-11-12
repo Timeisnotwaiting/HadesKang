@@ -1,4 +1,4 @@
-from telegram import Update 
+from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, CallbackContext
 from config import BOT_TOKEN, SUDO_USERS
 from pathlib import Path
@@ -39,12 +39,21 @@ async def kang(u: Update, c: CallbackContext):
     try:
         await c.bot.get_sticker_set(pack_name)
         if format == "video":
-            await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, webm_sticker=Path("lmao.webm")
+            await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, webm_sticker=Path("lmao.webm"))
         elif format == "animated":
-            await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, tgs_sticker=open("lmao.tgs", "rb")
+            await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, tgs_sticker=open("lmao.tgs", "rb"))
         else:
             await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, png_sticker=sticid)
-        return await m.reply_text(f"your pack is [here](t.me/addstickers/{pack_name})")
+        edited_keyboard = InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton(
+                                text="View Pack", url=f"t.me/addstickers/{pack_name}"
+                            )
+                        ]
+                    ]
+                )
+        return await m.reply_text(f"Sticker is added !\n\nEmoji : {emoji}", reply_markup=edited_markup)
     except:
         if not title:
             return await m.reply_text("/hkang [emoji] [packnum] [packname]")
@@ -74,6 +83,7 @@ async def del_sticker(u: Update, c: CallbackContext):
         return await m.reply_text("reply to a stixker vruh! ")
     try:
         await c.bot.delete_sticker_from_set(m.reply_to_message.sticker.file_id)
+        await m.reply_text("deleted !")
     except Exception as e:
         await m.reply_text(f"can't delete.. \n\n{e}")
 
