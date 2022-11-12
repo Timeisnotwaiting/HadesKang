@@ -53,7 +53,7 @@ async def kang(u: Update, c: CallbackContext):
                         ]
                     ]
                 )
-        return await m.reply_text(f"Sticker is added !\n\nEmoji : {emoji}", reply_markup=edited_markup)
+        return await m.reply_text(f"Sticker is added !\n\nEmoji : {emoji}", reply_markup=edited_keyboard)
     except:
         if not title:
             return await m.reply_text("/hkang [emoji] [packnum] [packname]")
@@ -73,7 +73,7 @@ async def kang(u: Update, c: CallbackContext):
                         ]
                     ]
                 )
-        return await m.reply_text(f"Sticker is added !\n\nEmoji : {emoji}", reply_markup=edited_markup)
+        return await m.reply_text(f"Sticker is added !\n\nEmoji : {emoji}", reply_markup=edited_keyboard)
 
 async def del_sticker(u: Update, c: CallbackContext):
     m = u.effective_message
