@@ -42,7 +42,9 @@ async def kang(u: Update, c: CallbackContext):
         dl = await get_file.download()
         x = convert(Path(dl))
         format = "normal"
+        png = True
     else:
+        png = False
         type = m.reply_to_message.sticker
         if type.is_video:
             format = "video"
@@ -65,7 +67,7 @@ async def kang(u: Update, c: CallbackContext):
         elif format == "animated":
             await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, tgs_sticker=open(x, "rb"))
         else:
-            await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, png_sticker=sticid)
+            await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, png_sticker=open(x, "rb") if png else sticid)
         edited_keyboard = InlineKeyboardMarkup(
                     [
                         [
