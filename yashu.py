@@ -31,7 +31,7 @@ def resize(kangsticker):
          im = im.resize(sizenew)
      else:
          im.thumbnail(maxsize)
-     im.save(kangsticker, "PNG")
+     return im.save(kangsticker, "PNG")
 
 async def start(u: Update, c: CallbackContext):
     await u.message.reply_text(f"Hello ! {u.effective_user.mention_html()}, Am kang bot of Hades Network, only Sudos can use me !")
