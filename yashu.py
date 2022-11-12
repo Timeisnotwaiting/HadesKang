@@ -102,7 +102,6 @@ def Asynchorous():
     print("Asyncio bot started !\nYashuAlpha ✨💭❤️")
     Yashu = ApplicationBuilder().token(BOT_TOKEN).build()
     Yashu.add_handler(CommandHandler("hkang", kang))
-    Yashu.add_handler(CommandHandler("setpname", get_args))
     Yashu.add_handler(CommandHandler("dsticker", del_sticker))
     Yashu.add_handler(CommandHandler("getpack", get_pack))
     Yashu.add_handler(CommandHandler("start", start))
