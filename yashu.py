@@ -3,6 +3,13 @@ from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, fil
 from config import BOT_TOKEN, SUDO_USERS
 from pathlib import Path
 from fileinput import input
+from PIL import Image
+
+def convert(source):
+    des = source.with_suffix(".webp")
+    image = Image.open(source)
+    image.save(des, format="webp")
+    return des    
 
 async def start(u: Update, c: CallbackContext):
     await u.message.reply_text(f"Hello ! {u.effective_user.mention_html()}, Am kang bot of Hades Network, only Sudos can use me !")
@@ -26,23 +33,29 @@ async def kang(u: Update, c: CallbackContext):
             tot += spl + " "
         title = tot
     if not m.reply_to_message:
-        return await m.reply_text("BRUH ! 🥲🥲\n\nReply to sticker !")
-    if not m.reply_to_message.sticker:
-        return await m.reply_text("BRUH ! 🥲🥲\n\nReply to sticker !")  
-    type = m.reply_to_message.sticker
-    if type.is_video:
-        format = "video"
-    elif type.is_animated:
-        format = "animated"
+        return await m.reply_text("BRUH ! 🥲🥲\n\nReply to sticker or a photo!")
+    if not m.reply_to_message.sticker and not m.reply_to_message.photo:
+        return await m.reply_text("BRUH ! 🥲🥲\n\nReply to sticker or a photo!")  
+    if m.reply_to_message.photo:
+        file_id = m.reply_to_message.file_id
+        get_file = await c.bot.get_file(file_id)
+        dl = await get_file.download()
+        x = convert(Path(dl))
     else:
-        format = "normal"
-    sticid = type.file_id
-    if format == "video":
-        get_file = await c.bot.get_file(sticid)
-        x = await get_file.download()
-    elif format == "animated":
-        get_file = await c.bot.get_file(sticid)
-        x = await get_file.download()
+        type = m.reply_to_message.sticker
+        if type.is_video:
+            format = "video"
+        elif type.is_animated:
+            format = "animated"
+        else:
+            format = "normal"
+        sticid = type.file_id
+        if format == "video":
+            get_file = await c.bot.get_file(sticid)
+            x = await get_file.download()
+        elif format == "animated":
+            get_file = await c.bot.get_file(sticid)
+            x = await get_file.download()
     pack_name = f"Hades_of_{user.id}_{format}_{pack}_by_{c.bot.username}"
     try:
         await c.bot.get_sticker_set(pack_name)
