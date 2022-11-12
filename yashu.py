@@ -9,7 +9,29 @@ def convert(source):
     des = source.with_suffix(".webp")
     image = Image.open(source)
     image.save(des, format="webp")
-    return des    
+    return des   
+
+def resize(kangsticker):
+     im = Image.open(kangsticker)
+     maxsize = (512, 512)
+     if (im.width and im.height) < 512:
+         size1 = im.width
+         size2 = im.height
+         if im.width > im.height:
+             scale = 512 / size1
+             size1new = 512
+             size2new = size2 * scale
+         else:
+             scale = 512 / size2
+             size1new = size1 * scale
+             size2new = 512
+         size1new = math.floor(size1new)
+         size2new = math.floor(size2new)
+         sizenew = (size1new, size2new)
+         im = im.resize(sizenew)
+     else:
+         im.thumbnail(maxsize)
+     im.save(kangsticker, "PNG")
 
 async def start(u: Update, c: CallbackContext):
     await u.message.reply_text(f"Hello ! {u.effective_user.mention_html()}, Am kang bot of Hades Network, only Sudos can use me !")
@@ -40,7 +62,9 @@ async def kang(u: Update, c: CallbackContext):
         file_id = m.reply_to_message.photo[-1].file_id
         get_file = await c.bot.get_file(file_id)
         dl = await get_file.download()
-        x = convert(Path(dl))
+        resize(dl)
+        split = dl.split(.)[0]
+        x = f"{split}.png"
         format = "normal"
         png = True
     else:
