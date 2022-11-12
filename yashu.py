@@ -24,7 +24,7 @@ async def kang(u: Update, c: CallbackContext):
         for spl in title:
             tot += spl + " "
         title = tot
-    if not m.reply_to_message.sticker:
+    if not m.reply_to_message and not m.reply_to_message.sticker:
         return await m.reply_text("BRUH ! 🥲🥲\n\nReply to sticker !")
     type = m.reply_to_message.sticker
     if type.is_video:
