@@ -50,9 +50,9 @@ async def kang(u: Update, c: CallbackContext):
             return await m.reply_text("/hkang [emoji] [packnum] [packname]")
         await m.reply_text("your new pack is created with name" + " " + title)
         if format == "video":
-            await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, webm_sticker=Path("lmao.webm")
+            await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, webm_sticker=Path("lmao.webm"))
         elif format == "animated":
-            await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, tgs_sticker=open("lmao.tgs", "rb")
+            await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, tgs_sticker=open("lmao.tgs", "rb"))
         else:
             await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, png_sticker=sticid)
         edited_keyboard = InlineKeyboardMarkup(
