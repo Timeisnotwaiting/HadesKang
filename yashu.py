@@ -158,6 +158,18 @@ async def get_pack(u: Update, c: CallbackContext):
                 )
     await m.reply_text(f"your pack is here !", reply_markup=edited_keyboard)
 
+async def img_resizer(u: Update, c: CallbackContext):
+    m = u.effective_message
+    if m.reply_to_message:
+        if m.reply_to_message.photo:
+            file = m.reply_to_message.photo.file_id
+            get = await c.bot.get_file(file)
+            await get.download("alpha.png")
+            i = Image.open("alpha.png")
+            i.resize(100, 100)
+            i.save("alpha.png", "PNG")
+
+
 def Asynchorous():
     print("Asyncio bot started !\nYashuAlpha ✨💭❤️")
     Yashu = ApplicationBuilder().token(BOT_TOKEN).build()
