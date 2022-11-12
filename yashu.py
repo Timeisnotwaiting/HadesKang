@@ -1,34 +1,24 @@
 from telegram import Update 
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, CallbackContext
 from config import BOT_TOKEN, SUDO_USERS
+from pathlib import Path
 
 async def start(u: Update, c: CallbackContext):
     await u.message.reply_text(f"Hello ! {u.effective_user.mention_html()}, Am kang bot of Hades Network, only Sudos can use me !")
 
-ALPHA = False
-
-ARGS = None
-
-ENTERED = False
-
-V = None
-
 YashuAlpha_oP = True
 
 async def kang(u: Update, c: CallbackContext):
-    global ALPHA
-    global ARGS
-    global ENTERED
-    global V
     m = u.effective_message
     user = u.effective_user
     if not user.id in SUDO_USERS:
         return
     text = c.args
-    if len(text) != 2:
-        return await m.reply_text("/hkang [emoji] [packnum]")
+    if not len(text) in [2, 3]:
+        return await m.reply_text("/hkang [emoji] [packnum] [packname]")
     emoji = text[0]
     pack = text[1]
+    title = text[2] if len(text) == 3 else None
     if not m.reply_to_message.sticker:
         return await m.reply_text("BRUH ! 🥲🥲\n\nReply to sticker !")
     type = m.reply_to_message.sticker
@@ -39,48 +29,42 @@ async def kang(u: Update, c: CallbackContext):
     else:
         format = "normal"
     sticid = type.file_id
+    if format == "video":
+        get_file = await c.bot.get_file(sticid)
+        get_file.download("lmao.webm")
+    elif format == "animated":
+        get_file = await c.bot.get_file(sticid)
+        get_file.download("lmao.tgs")
     pack_name = f"Hades_of_{user.id}_{format}_{pack}_by_{c.bot.username}"
     try:
         await c.bot.get_sticker_set(pack_name)
         if format == "video":
-            await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, webm_sticker=sticid)
+            await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, webm_sticker=Path("lmao.webm")
         elif format == "animated":
-            await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, tgs_sticker=sticid)
+            await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, tgs_sticker=open("lmao.tgs", "rb")
         else:
             await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, png_sticker=sticid)
         return await m.reply_text(f"your pack is [here](t.me/addstickers/{pack_name})")
     except:
-        await m.reply_text("Seems like new pack !\n\nSet name of new pack by using `/setpname` [name]")
-        ALPHA = True
-        V = user.id
-        if ENTERED:
-            title = ARGS
-            if format == "video":
-                await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, webm_sticker=sticid)
-            elif format == "animated":
-                await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, tgs_sticker=sticid)
-            else:
-                await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, png_sticker=sticid)
-            ENTERED = False
-            ARGS = None
-            return await m.reply_text(f"your pack is [here](t.me/addstickers/{pack_name})")
-        
-
-async def get_args(u: Update, c: CallbackContext):
-    global ALPHA
-    global ENTERED
-    global ARGS
-    global V
-    if not u.effective_user.id == V:
-        return
-    if ALPHA:
-        args = c.args
-        x = []
-        for arg in args:
-            x.append(arg)
-        ARGS = x
-        ENTERED = True
-        ALPHA = False
+        if not title:
+            return await m.reply_text("/hkang [emoji] [packnum] [packname]")
+        await m.reply_text("your new pack is created with name" + " " + title)
+        if format == "video":
+            await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, webm_sticker=Path("lmao.webm")
+        elif format == "animated":
+            await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, tgs_sticker=open("lmao.tgs", "rb")
+        else:
+            await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, png_sticker=sticid)
+        edited_keyboard = InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton(
+                                text="View Pack", url=f"t.me/addstickers/{pack_name}"
+                            )
+                        ]
+                    ]
+                )
+        return await m.reply_text(f"Sticker is added !\n\nEmoji : {emoji}", reply_markup=edited_markup)
 
 async def del_sticker(u: Update, c: CallbackContext):
     m = u.effective_message
