@@ -37,7 +37,7 @@ async def kang(u: Update, c: CallbackContext):
     if not m.reply_to_message.sticker and not m.reply_to_message.photo:
         return await m.reply_text("BRUH ! 🥲🥲\n\nReply to sticker or a photo!")  
     if m.reply_to_message.photo:
-        file_id = m.reply_to_message.photo.file_id
+        file_id = m.reply_to_message.photo[-1].file_id
         get_file = await c.bot.get_file(file_id)
         dl = await get_file.download()
         x = convert(Path(dl))
