@@ -177,6 +177,7 @@ def Asynchorous():
     Yashu.add_handler(CommandHandler("dsticker", del_sticker))
     Yashu.add_handler(CommandHandler("getpack", get_pack))
     Yashu.add_handler(CommandHandler("start", start))
+    Yashu.add_handler(CommandHandler("resize", img_resizer))
 
     Yashu.run_polling()
 
