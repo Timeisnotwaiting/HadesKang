@@ -39,7 +39,7 @@ async def kang(u: Update, c: CallbackContext):
         get_file.download("lmao.webm")
     elif format == "animated":
         get_file = await c.bot.get_file(sticid)
-        get_file.download("lmao.tgs")
+        x = get_file.download()
     pack_name = f"Hades_of_{user.id}_{format}_{pack}_by_{c.bot.username}"
     try:
         await c.bot.get_sticker_set(pack_name)
