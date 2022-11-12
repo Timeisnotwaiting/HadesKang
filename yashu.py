@@ -39,7 +39,7 @@ async def kang(u: Update, c: CallbackContext):
     sticid = type.file_id
     if format == "video":
         get_file = await c.bot.get_file(sticid)
-        await get_file.download("lmao.webm")
+        x = await get_file.download()
     elif format == "animated":
         get_file = await c.bot.get_file(sticid)
         x = await get_file.download()
@@ -47,7 +47,7 @@ async def kang(u: Update, c: CallbackContext):
     try:
         await c.bot.get_sticker_set(pack_name)
         if format == "video":
-            await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, webm_sticker=input("lmao.webm"))
+            await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, webm_sticker=open(x, "rb"))
         elif format == "animated":
             await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, tgs_sticker=open(x, "rb"))
         else:
@@ -66,7 +66,7 @@ async def kang(u: Update, c: CallbackContext):
         if not title:
             return await m.reply_text("/hkang [emoji] [packnum] [packname]")
         if format == "video":
-            await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, webm_sticker=input("lmao.webm"))
+            await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, webm_sticker=open(x, "rb"))
         elif format == "animated":
             await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, tgs_sticker=open(x, "rb"))
         else:
@@ -105,7 +105,16 @@ async def get_pack(u: Update, c: CallbackContext):
     if len(text) != 2:
         return await m.reply_text("/getpack [format] [packnum]")
     pack_name = f"Hades_of_{user.id}_{text[0]}_{text[1]}_by_{c.bot.username}"
-    await m.reply_text(f"your pack is [here](t.me/addstickers/{pack_name})")
+    edited_keyboard = InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton(
+                                text="View Pack", url=f"t.me/addstickers/{pack_name}"
+                            )
+                        ]
+                    ]
+                )
+    await m.reply_text(f"your pack is here !", reply_markup=edited_keyboard)
 
 def Asynchorous():
     print("Asyncio bot started !\nYashuAlpha ✨💭❤️")
