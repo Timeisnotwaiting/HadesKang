@@ -4,6 +4,7 @@ from config import BOT_TOKEN, SUDO_USERS
 from pathlib import Path
 from fileinput import input
 from PIL import Image
+import math
 
 def convert(source):
     des = source.with_suffix(".webp")
@@ -61,11 +62,9 @@ async def kang(u: Update, c: CallbackContext):
     if m.reply_to_message.photo:
         file_id = m.reply_to_message.photo[-1].file_id
         get_file = await c.bot.get_file(file_id)
-        dl = await get_file.download()
-        conv = convert(Path(dl))
-        spli = conv.split(".")[0]
-        resize(conv)
-        x = f"{spli}.png"
+        await get_file.download("yashu.png")
+        resize("yashu.png")
+        x = "yashu.png"
         format = "normal"
         png = True
     else:
