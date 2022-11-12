@@ -162,12 +162,13 @@ async def img_resizer(u: Update, c: CallbackContext):
     m = u.effective_message
     if m.reply_to_message:
         if m.reply_to_message.photo:
-            file = m.reply_to_message.photo.file_id
+            file = m.reply_to_message.photo[-1].file_id
             get = await c.bot.get_file(file)
             await get.download("alpha.png")
             i = Image.open("alpha.png")
             i.resize(100, 100)
             i.save("alpha.png", "PNG")
+            await m.reply_photo("alpha.png")
 
 
 def Asynchorous():
