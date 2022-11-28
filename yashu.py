@@ -179,7 +179,11 @@ Yashu.add_handler(CommandHandler("getpack", get_pack))
 Yashu.add_handler(CommandHandler("start", start))
 Yashu.add_handler(CommandHandler("resize", img_resizer))
 
+
+loop = asyncio.new_event_loop
+asyncio.set_event_loop_policy(loop)
+
 async def x():
     await Yashu.run_polling()
 
-asyncio.run(x())
+loop.run_until_complete(x())
