@@ -4,6 +4,7 @@ from config import BOT_TOKEN, SUDO_USERS
 from pathlib import Path
 from fileinput import input
 from PIL import Image
+import asyncio
 import math
 
 def convert(source):
@@ -170,17 +171,12 @@ async def img_resizer(u: Update, c: CallbackContext):
             i.save("alpha.png", "PNG")
             await m.reply_document(open("alpha.png", "rb"))
 
+print("Asyncio bot started !\nYashuAlpha ✨💭❤️")
+Yashu = ApplicationBuilder().token(BOT_TOKEN).build()
+Yashu.add_handler(CommandHandler("hkang", kang))
+Yashu.add_handler(CommandHandler("dsticker", del_sticker))
+Yashu.add_handler(CommandHandler("getpack", get_pack))
+Yashu.add_handler(CommandHandler("start", start))
+Yashu.add_handler(CommandHandler("resize", img_resizer))
 
-def Asynchorous():
-    print("Asyncio bot started !\nYashuAlpha ✨💭❤️")
-    Yashu = ApplicationBuilder().token(BOT_TOKEN).build()
-    Yashu.add_handler(CommandHandler("hkang", kang))
-    Yashu.add_handler(CommandHandler("dsticker", del_sticker))
-    Yashu.add_handler(CommandHandler("getpack", get_pack))
-    Yashu.add_handler(CommandHandler("start", start))
-    Yashu.add_handler(CommandHandler("resize", img_resizer))
-
-    Yashu.run_polling()
-
-if YashuAlpha_oP:
-    Asynchorous()
+Yashu.run_polling()
