@@ -171,7 +171,6 @@ async def img_resizer(u: Update, c: CallbackContext):
             i.save("alpha.png", "PNG")
             await m.reply_document(open("alpha.png", "rb"))
 
-print("Asyncio bot started !\nYashuAlpha ✨💭❤️")
 Yashu = ApplicationBuilder().token(BOT_TOKEN).build()
 Yashu.add_handler(CommandHandler("hkang", kang))
 Yashu.add_handler(CommandHandler("dsticker", del_sticker))
@@ -179,11 +178,8 @@ Yashu.add_handler(CommandHandler("getpack", get_pack))
 Yashu.add_handler(CommandHandler("start", start))
 Yashu.add_handler(CommandHandler("resize", img_resizer))
 
-
-loop = asyncio.new_event_loop
-asyncio.set_event_loop_policy(loop)
-
 async def x():
+    print("Asyncio bot started !\nYashuAlpha ✨💭❤️")
     await Yashu.run_polling()
 
-loop.run_until_complete(x())
+asyncio.run(x())
