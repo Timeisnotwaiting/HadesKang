@@ -4,9 +4,8 @@ from config import BOT_TOKEN, SUDO_USERS
 from pathlib import Path
 from fileinput import input
 from PIL import Image
-import asyncio
 import math
-import sys
+
 
 def convert(source):
     des = source.with_suffix(".webp")
@@ -172,11 +171,6 @@ async def img_resizer(u: Update, c: CallbackContext):
             i.save("alpha.png", "PNG")
             await m.reply_document(open("alpha.png", "rb"))
 
-loop = asyncio.new_event_loop()
-asyncio.set_event_loop(loop)
-
-if sys.platform == "win32" and sys.version_info >= (3, 6, 0):
-    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 def x():
     Yashu = ApplicationBuilder().token(BOT_TOKEN).build()
