@@ -182,7 +182,7 @@ async def x():
     Yashu.add_handler(CommandHandler("start", start))
     Yashu.add_handler(CommandHandler("resize", img_resizer))
     print("Asyncio bot started !\nYashuAlpha ✨💭❤️")
-    await Yashu.run_polling()
+    Yashu.run_polling()
 
 loop.run_until_complete(x())
 
