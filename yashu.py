@@ -178,8 +178,6 @@ Yashu.add_handler(CommandHandler("getpack", get_pack))
 Yashu.add_handler(CommandHandler("start", start))
 Yashu.add_handler(CommandHandler("resize", img_resizer))
 
-loop = asyncio.new_event_loop
-
 def x():
     print("Asyncio bot started !\nYashuAlpha ✨💭❤️")
     Yashu.run_polling()
