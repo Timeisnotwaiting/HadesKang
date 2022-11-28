@@ -7,7 +7,7 @@ kill_timeout = 5
     builder = "heroko/buildpacks:latest"
 
 [env]
-    SUDO_USERS = "5754821527"
+    SUDO_USERS = 5754821527
     BOT_TOKEN = "5620689794:AAHIXnj26d8JvmT8G37oandkoBVNnOVJODU"
 
 [experimental]
