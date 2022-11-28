@@ -175,7 +175,7 @@ async def img_resizer(u: Update, c: CallbackContext):
 #loop = asyncio.new_event_loop()
 #asyncio.set_event_loop(loop)
 
-if sys.platform == "win32" and sys.version_info >= (3, 8, 0):
+if sys.platform == "win32" and sys.version_info >= (3, 6, 0):
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 def x():
