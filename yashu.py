@@ -172,8 +172,8 @@ async def img_resizer(u: Update, c: CallbackContext):
             i.save("alpha.png", "PNG")
             await m.reply_document(open("alpha.png", "rb"))
 
-#loop = asyncio.new_event_loop()
-#asyncio.set_event_loop(loop)
+loop = asyncio.new_event_loop()
+asyncio.set_event_loop(loop)
 
 if sys.platform == "win32" and sys.version_info >= (3, 6, 0):
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
