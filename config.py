@@ -1,6 +1,6 @@
 from os import environ as e
 
-BOT_TOKEN = e["BOT_TOKEN"]
+BOT_TOKEN = "5774044322:AAF2vmRlgXVqRekkK2KQbTr8roqNqeUdNI4"
 """
 SUDOS = e["SUDO_USERS"].split()
 
