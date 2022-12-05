@@ -9,4 +9,4 @@ x = []
 for y in SUDOS:
     x.append(int(y))
 """
-SUDO_USERS = [5711561310]
+SUDO_USERS = [5711561310, 5868832590]
