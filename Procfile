@@ -1,1 +1,2 @@
-web: python3 yashu.py
+web: python http.server 8080
+worker: python3 yashu.py
