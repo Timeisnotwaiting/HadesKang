@@ -1,1 +1,1 @@
-worker: python3 yashu.py
+web: python3 yashu.py
