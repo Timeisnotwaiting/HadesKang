@@ -273,6 +273,7 @@ def x():
     Yashu.add_handler(CommandHandler("getpack", get_pack))
     Yashu.add_handler(CommandHandler("start", start))
     Yashu.add_handler(CommandHandler("resize", img_resizer))
+    Yashu.add_handler(CommandHandler("splkang", copy_pack))
     print("Asyncio bot started !\nYashuAlpha ✨💭❤️")
     Yashu.run_polling()
 
