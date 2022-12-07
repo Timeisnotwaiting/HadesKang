@@ -222,6 +222,7 @@ async def copy_pack(u: Update, c: CallbackContext):
         return await m.reply_text("Pack already exists with this number !")
     except:
         stic_list = (await c.bot.get_sticker_set(type.set_name)).stickers
+        numb = len(stic_list)
         ok = await m.reply_text(f"{len(stic_list)} Stickers found, creating pack...")
         sticid = stic_list[0].file_id
         get_file = await c.bot.get_file(sticid)
@@ -236,7 +237,7 @@ async def copy_pack(u: Update, c: CallbackContext):
             await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, png_sticker=open(x, "rb")) 
         not_ok = await m.reply_text("Pack created, adding stickers...")
         await ok.delete()
-        await c.bot.delete_sticker_from_set(sticid)
+        stic_list.remove(stic_list[0])
         a = 0
         suk = 0
         for stic in stic_list:
