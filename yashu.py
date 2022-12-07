@@ -134,6 +134,16 @@ async def del_sticker(u: Update, c: CallbackContext):
     if not m.reply_to_message.sticker:
         return await m.reply_text("reply to a stixker vruh! ")
     try:
+        sn = m.reply_to_message.sticker.set_name
+        sn = sn.split("_")
+        ind = sn.index("of")
+        ind = ind + 1
+        ind = sn[ind]
+        if user.id != int(ind):
+            return await m.reply_text("You can't delete this sticker !")
+    except:
+        return await m.reply_text("You can't delete this sticker !")
+    try:
         await c.bot.delete_sticker_from_set(m.reply_to_message.sticker.file_id)
         await m.reply_text("deleted !")
     except Exception as e:
