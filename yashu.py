@@ -194,14 +194,14 @@ async def copy_pack(u: Update, c: CallbackContext):
     if len(args) == 2:
         try:
             packnum = int(args[0])
-            packname = args[1]
+            title = args[1]
         except:
             return await m.reply_text(usage)
     if len(args) > 2:
         try:
             emoji = args[0]
             packnum = int(args[1])
-            packname = args[2]
+            title = args[2]
         except:
             return await m.reply_text(usage)
     type = m.reply_to_message.sticker
@@ -216,7 +216,54 @@ async def copy_pack(u: Update, c: CallbackContext):
         x = await c.bot.get_sticker_set(pack_name)
         return await m.reply_text("Pack already exists with this number !")
     except:
-        
+        stic_list = (await c.bot.get_sticker_set(type.set_name)).stickers
+        ok = await m.reply_text(f"{len(stic_list)} Stickers found, creating pack...")
+        sticid = stic_list[0].file_id
+        get_file = await c.bot.get_file(sticid)
+        x = await get_file.download()
+        if not emoji:
+            emoji = stic_list[0].emoji
+        if format == "video":
+            await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, webm_sticker=open(x, "rb"))
+        elif format == "animated":
+            await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, tgs_sticker=open(x, "rb"))
+        else:
+            await c.bot.create_new_sticker_set(user_id=user.id, name=pack_name, title=title, emojis=emoji, png_sticker=open(x, "rb")) 
+        not_ok = await m.reply_text("Pack created, adding stickers...")
+        await ok.delete()
+        await c.bot.delete_sticker_from_set(sticid)
+        a = 0
+        suk = 0
+        for stic in stic_list:
+            sticid = stic.file_id
+            get_file = await c.bot.get_file(sticid)
+            x = await get_file.download()
+            if not emoji:
+                emoji = stic.emoji
+            if format == "video":
+                await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, webm_sticker=open(x, "rb"))
+            elif format == "animated":
+                await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, tgs_sticker=open(x, "rb"))
+            else:
+                await c.bot.add_sticker_to_set(user_id=user.id, name=pack_name, emojis=emoji, png_sticker=open(x, "rb"))
+            a += 1
+            if suk == 5:
+                try: 
+                    await not_ok.edit_text(f"Progress : {a} / {len(stic_list)}")
+                    suk = 0
+                except:
+                    pass
+        await not_ok.delete()
+        edited_keyboard = InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton(
+                                text="View Pack", url=f"t.me/addstickers/{pack_name}"
+                            )
+                        ]
+                    ]
+                )
+        await m.reply_text(f"your pack is here !", reply_markup=edited_keyboard)
 
 
 def x():
