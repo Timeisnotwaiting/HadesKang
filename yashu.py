@@ -181,6 +181,12 @@ async def img_resizer(u: Update, c: CallbackContext):
             i.save("alpha.png", "PNG")
             await m.reply_document(open("alpha.png", "rb"))
 
+async def copy_pack(u: Update, c: CallbackContext):
+    m = u.effective_message
+    user = u.effective_user
+    if not user.id in SUDO_USERS:
+        return
+
 
 def x():
     Yashu = ApplicationBuilder().token(BOT_TOKEN).build()
