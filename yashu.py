@@ -36,7 +36,7 @@ def resize(kangsticker):
      im.save(kangsticker, "PNG")
 
 async def start(u: Update, c: CallbackContext):
-    await u.message.reply_text(f"Hello ! {u.effective_user.mention_html()}, Am kang bot of Hades Network, only Sudos can use me !")
+    await u.message.reply_text(f"Hello ! {u.effective_user.first_name}, Am sticker bot of Spoiled Network, only Sudos can use me !")
 
 YashuAlpha_oP = True
 
