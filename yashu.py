@@ -188,6 +188,10 @@ async def copy_pack(u: Update, c: CallbackContext):
     user = u.effective_user
     if not user.id in SUDO_USERS:
         return
+    if not m.reply_to_message:
+        return await m.reply_text("BRUH ! 🥲🥲\n\nReply to sticker !")
+    if not m.reply_to_message.sticker:
+        return await m.reply_text("BRUH ! 🥲🥲\n\nReply to sticker !")  
     args = c.args
     if len(args) < 2:
         return await m.reply_text(usage)
