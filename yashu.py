@@ -197,6 +197,7 @@ async def copy_pack(u: Update, c: CallbackContext):
         return await m.reply_text(usage)
     if len(args) == 2:
         try:
+            emoji = None
             packnum = int(args[0])
             title = args[1]
         except:
