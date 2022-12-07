@@ -181,11 +181,16 @@ async def img_resizer(u: Update, c: CallbackContext):
             i.save("alpha.png", "PNG")
             await m.reply_document(open("alpha.png", "rb"))
 
+usage = "/splkang [emoji] [packnum] [packname]\n\n/splkang [packnum] [packname]\n\nNote : if emoji is not provided, 
+
 async def copy_pack(u: Update, c: CallbackContext):
     m = u.effective_message
     user = u.effective_user
     if not user.id in SUDO_USERS:
         return
+    args = c.args
+    if args < 2:
+        return await m.reply_text
 
 
 def x():
