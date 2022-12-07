@@ -181,7 +181,7 @@ async def img_resizer(u: Update, c: CallbackContext):
             i.save("alpha.png", "PNG")
             await m.reply_document(open("alpha.png", "rb"))
 
-usage = "/splkang [emoji] [packnum] [packname]\n\n/splkang [packnum] [packname]\n\nNote : if emoji is not provided, 
+usage = "/splkang [emoji] [packnum] [packname]\n\n/splkang [packnum] [packname]\n\nNote : if emoji is not provided, sticker will be added as their corresponding emoji !"
 
 async def copy_pack(u: Update, c: CallbackContext):
     m = u.effective_message
@@ -189,8 +189,34 @@ async def copy_pack(u: Update, c: CallbackContext):
     if not user.id in SUDO_USERS:
         return
     args = c.args
-    if args < 2:
-        return await m.reply_text
+    if len(args) < 2:
+        return await m.reply_text(usage)
+    if len(args) == 2:
+        try:
+            packnum = int(args[0])
+            packname = args[1]
+        except:
+            return await m.reply_text(usage)
+    if len(args) > 2:
+        try:
+            emoji = args[0]
+            packnum = int(args[1])
+            packname = args[2]
+        except:
+            return await m.reply_text(usage)
+    type = m.reply_to_message.sticker
+    if type.is_video:
+        format = "video"
+    elif type.is_animated:
+        format = "animated"
+    else:
+        format = "normal"
+    pack_name = f"Hades_of_{user.id}_{format}_{packnum}_by_{c.bot.username}"
+    try:
+        x = await c.bot.get_sticker_set(pack_name)
+        return await m.reply_text("Pack already exists with this number !")
+    except:
+        
 
 
 def x():
