@@ -195,20 +195,23 @@ async def copy_pack(u: Update, c: CallbackContext):
     args = c.args
     if len(args) < 2:
         return await m.reply_text(usage)
-    if len(args) == 2:
-        try:
-            emoji = None
-            packnum = int(args[0])
-            title = args[1]
-        except:
-            return await m.reply_text(usage)
-    if len(args) > 2:
+    if len(args) > 1:
         try:
             emoji = args[0]
             packnum = int(args[1])
-            title = args[2]
+            title = args[2:]
         except:
-            return await m.reply_text(usage)
+            try:
+                emoji = None
+                packnum = int(args[0])
+                title = args[1:]
+            except:
+                return await m.reply_text(usage)
+    if title:
+        tot = ""
+        for spli in title:
+            tot += spli + " "
+        title = tot
     type = m.reply_to_message.sticker
     if type.is_video:
         format = "video"
