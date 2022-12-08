@@ -6,6 +6,7 @@ from fileinput import input
 from PIL import Image
 import math
 
+# ?
 
 def convert(source):
     des = source.with_suffix(".webp")
