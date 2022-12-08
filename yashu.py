@@ -6,8 +6,6 @@ from fileinput import input
 from PIL import Image
 import math
 
-# ?
-
 def convert(source):
     des = source.with_suffix(".webp")
     image = Image.open(source)
@@ -260,7 +258,7 @@ async def copy_pack(u: Update, c: CallbackContext):
             if suk == 5:
                 try: 
                     id = not_ok.message_id
-                    await c.bot.edit_message_text(chat_id=m.chat.id, message_id=id, f"Progress : {a} / {len(stic_list)}")
+                    await c.bot.edit_message_text(chat_id=m.chat.id, message_id=id, text=f"Progress : {a} / {len(stic_list)}")
                     suk = 0
                 except:
                     pass
