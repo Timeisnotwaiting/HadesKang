@@ -242,6 +242,7 @@ async def copy_pack(u: Update, c: CallbackContext):
         stic_list.remove(stic_list[0])
         a = 0
         suk = 0
+        ex = True
         for stic in stic_list:
             sticid = stic.file_id
             get_file = await c.bot.get_file(sticid)
@@ -259,7 +260,10 @@ async def copy_pack(u: Update, c: CallbackContext):
                 try: 
                     await not_ok.edit_text(f"Progress : {a} / {len(stic_list)}")
                     suk = 0
-                except:
+                except Exception as e:
+                    if ex:
+                        await m.reply_text(e)
+                        ex = False
                     pass
         await not_ok.delete()
         edited_keyboard = InlineKeyboardMarkup(
