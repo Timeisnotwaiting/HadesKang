@@ -257,8 +257,7 @@ async def copy_pack(u: Update, c: CallbackContext):
             a += 1
             if suk == 5:
                 try: 
-                    id = not_ok.message_id
-                    await c.bot.edit_message_text(chat_id=m.chat.id, message_id=id, text=f"Progress : {a} / {len(stic_list)}")
+                    await not_ok.edit_text(f"Progress : {a} / {len(stic_list)}")
                     suk = 0
                 except:
                     pass
