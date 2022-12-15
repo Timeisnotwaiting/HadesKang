@@ -218,6 +218,10 @@ async def copy_pack(u: Update, c: CallbackContext):
         format = "animated"
     else:
         format = "normal"
+    try:
+        id = user.id
+    except:
+        return await m.reply_text("Start me in Pm first !")
     pack_name = f"Hades_of_{user.id}_{format}_{packnum}_by_{c.bot.username}"
     try:
         x = await c.bot.get_sticker_set(pack_name)
